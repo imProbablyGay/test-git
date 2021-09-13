@@ -1,55 +1,49 @@
-function checkNextLesson(start,end,...activeDays) {
-    let date = new Date();
-    let days = [1,2,3,4,5,6,7];
-    let weekDay = date.getDay();
-    let dayCount = 0;
-    let month = date.getMonth() + 1;
-    let dateDay = date.getDate();
-    let splittedTime = start.split('.');
-    
-    if (weekDay == 0) weekDay = 7;
+let imgContainer = document.querySelector('.wrapper');
+let bar = document.querySelector('.bar');
+let coloredImg = document.querySelector('.wrapper .colored-img');
+let imgWidth = parseInt(window.getComputedStyle(imgContainer).getPropertyValue('width'));
+let imgLeft = imgContainer.getBoundingClientRect().left;
+let moveX = 0;
+let mouseDown = false;
+let customClientX;
 
-    // if today will be lesson
-    for (let day of activeDays) {
-        if (day == weekDay) {
-            let currentTime = `${date.getHours()}.${date.getMinutes()}`
 
-            // check time
-            if (currentTime < start) return `урок пройдет сегодня в ${start}`;
-            if (currentTime > start && currentTime < end) return `урок идет прямо сейчас и закончится в ${end}, поторопись!`;
-        }
+imgContainer.addEventListener('mousemove', drawImg);
+imgContainer.addEventListener('touchmove', drawImg);
+
+bar.addEventListener('mousedown', (e) => mouseDown = true);
+document.addEventListener('mouseup', (e) => {
+    if (mouseDown) mouseDown = false;
+});
+
+bar.addEventListener('touchstart', (e) => mouseDown = true);
+bar.addEventListener('touchend', (e) => mouseDown = false);
+
+
+function drawImg(e) {
+    if (!mouseDown)return false;
+
+    moveX = e.clientX - imgLeft;
+    customClientX = e.clientX;
+    if (('ontouchstart' in window)) {
+        customClientX = e.targetTouches[0].clientX;
+        moveX = customClientX - imgLeft;
     }
 
-    // check next lesson day
-    for (let day of days) {
-        let isFalse = false;
+    // check position
+    if (customClientX < imgLeft) {
+        bar.style.left = 0
+        coloredImg.style.width = 0;
 
-        if (day > weekDay) dayCount++;
+        return false;
+    }
+    else if (customClientX > imgLeft + imgWidth) {
+        bar.style.left = 'calc(100% - 3px)';
+        coloredImg.style.width = '100%';
 
-        for (let activeDay of activeDays) {
-            if (activeDay == day && activeDay > weekDay) {
-                isFalse = true;
-            }
-        }
-
-        if (day == 7) dayCount += activeDays[0]
-
-        if (isFalse) break;
+        return false;
     }
 
-    // update date
-    if (dateDay + dayCount >= 10) {
-        date.setDate(dayCount + dateDay);
-        dateDay = date.getDate();
-        month = date.getMonth() + 1;
-    }
-
-    // add 0 if less than 10
-    if (date.getMonth() < 10) month = '0' + (date.getMonth() + 1);
-    if (date.getDate() < 10) dateDay = '0' + (date.getDate());
-    
-    return `следующий урок состоится ${dateDay} ${month} в ${splittedTime[0]}:${splittedTime[1]}.`
+    bar.style.left = moveX + 'px'
+    coloredImg.style.width = moveX + 'px';
 }
-
-
-console.log(checkNextLesson('17.40','19.10',3,5));
