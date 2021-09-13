@@ -5,6 +5,7 @@ function checkNextLesson(start,end,...activeDays) {
     let dayCount = 0;
     let month = date.getMonth() + 1;
     let dateDay = date.getDate();
+    let splittedTime = start.split('.');
     
     if (weekDay == 0) weekDay = 7;
 
@@ -47,7 +48,7 @@ function checkNextLesson(start,end,...activeDays) {
     if (date.getMonth() < 10) month = '0' + (date.getMonth() + 1);
     if (date.getDate() < 10) dateDay = '0' + (date.getDate());
     
-    return `следующий урок состоится ${dateDay} ${month} в ${start}.`
+    return `следующий урок состоится ${dateDay} ${month} в ${splittedTime[0]}:${splittedTime[1]}.`
 }
 
 
