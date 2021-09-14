@@ -60,10 +60,11 @@ function drawImg(e) {
 
 function resizeFun() {
     imgLeft = imgContainer.getBoundingClientRect().left;
-    imgWidth = parseInt(imgs[0].offsetWidth);
+    imgWidth = imgContainer.offsetWidth;
 
 
     let windowWidth = document.documentElement.clientWidth;
+    console.log(imgWidth,imgLeft);
 
     if (windowWidth < firstImgWidth) imgs.forEach(el => {
         el.style.width = windowWidth - 20 + 'px'
