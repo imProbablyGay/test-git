@@ -18,6 +18,7 @@ body {
   max-width: 500px;
   width: 100%;
   height: 300px;
+  margin: 10px;
 }
 
 .wrapper .img {
@@ -32,6 +33,12 @@ body {
   -webkit-filter: grayscale(1);
           filter: grayscale(1);
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .wrapper .img:last-child {

@@ -1,12 +1,15 @@
 let imgContainer = document.querySelector('.wrapper');
 let bar = document.querySelector('.bar');
+let imgs = imgContainer.querySelectorAll('img');
 let coloredImg = document.querySelector('.wrapper .colored-img');
-let imgWidth = parseInt(window.getComputedStyle(imgContainer).getPropertyValue('width'));
+let imgWidth = parseInt(imgs[0].offsetWidth);
+let firstImgWidth = parseInt(imgs[0].offsetWidth);
 let imgLeft = imgContainer.getBoundingClientRect().left;
 let moveX = 0;
 let mouseDown = false;
 let customClientX;
 
+window.addEventListener('resize', resizeFun);
 
 imgContainer.addEventListener('mousemove', (e) => {
     let event = e;
@@ -45,6 +48,7 @@ function drawImg(e) {
     }
     else if (customClientX > imgLeft + imgWidth) {
         bar.style.left = 'calc(100% - 3px)';
+        bar.style.paddingRight = 0;
         coloredImg.style.width = '100%';
 
         return false;
@@ -53,3 +57,21 @@ function drawImg(e) {
     bar.style.left = moveX + 'px'
     coloredImg.style.width = moveX + 'px';
 }
+
+function resizeFun() {
+    imgLeft = imgContainer.getBoundingClientRect().left;
+    imgWidth = parseInt(imgs[0].offsetWidth);
+
+
+    let windowWidth = document.documentElement.clientWidth;
+
+    if (windowWidth < firstImgWidth) imgs.forEach(el => {
+        el.style.width = windowWidth - 20 + 'px'
+    })
+    else if(windowWidth > imgWidth) {
+        imgs.forEach(el => {
+        })
+    }
+}
+
+if (document.documentElement.clientWidth < imgWidth) resizeFun();
