@@ -1,7 +1,7 @@
 body {
     margin: 0;
     background: rgb(28, 75, 107);
-    height: 100vh;
+    height: 130vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,8 +39,8 @@ body {
         z-index: 10;
         width: 3px;
         height: 120%;
-        padding: 20px;
-        margin: -20px;
+        padding: 10px;
+        margin: -10px;
         cursor: grab;
         position: absolute;
         left: 50%;

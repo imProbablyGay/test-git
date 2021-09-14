@@ -26,7 +26,10 @@ document.addEventListener('mouseup', (e) => {
 });
 
 bar.addEventListener('touchstart', (e) => mouseDown = true);
-bar.addEventListener('touchend', (e) => mouseDown = false);
+bar.addEventListener('touchend', (e) => {
+    mouseDown = false;
+    document.body.style.overflow = '';
+});
 
 
 function drawImg(e) {
@@ -37,6 +40,7 @@ function drawImg(e) {
     if (('ontouchstart' in window)) {
         customClientX = e.targetTouches[0].clientX;
         moveX = customClientX - imgLeft;
+        document.body.style.overflow = 'hidden'
     }
 
     // check position

@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background: #1c4b6b;
-  height: 100vh;
+  height: 130vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -55,8 +55,8 @@ body {
   z-index: 10;
   width: 3px;
   height: 120%;
-  padding: 20px;
-  margin: -20px;
+  padding: 10px;
+  margin: -10px;
   cursor: -webkit-grab;
   cursor: grab;
   position: absolute;
