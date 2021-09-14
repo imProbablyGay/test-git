@@ -8,8 +8,14 @@ let mouseDown = false;
 let customClientX;
 
 
-imgContainer.addEventListener('mousemove', drawImg);
-imgContainer.addEventListener('touchmove', drawImg);
+imgContainer.addEventListener('mousemove', (e) => {
+    let event = e;
+    window.requestAnimationFrame(() => drawImg(event))
+});
+imgContainer.addEventListener('touchmove', (e) => {
+    let event = e;
+    window.requestAnimationFrame(() => drawImg(event))
+});
 
 bar.addEventListener('mousedown', (e) => mouseDown = true);
 document.addEventListener('mouseup', (e) => {
